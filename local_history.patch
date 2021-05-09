@@ -1,0 +1,54 @@
+Index: app/src/main/java/hk/edu/ouhk/weather/WeatherAPI.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/hk/edu/ouhk/weather/WeatherAPI.java	(date 1620551724509)
++++ app/src/main/java/hk/edu/ouhk/weather/WeatherAPI.java	(date 1620551724509)
+@@ -77,10 +77,10 @@
+ 
+     public void run(){
+         try {
+-
+-            String result = MakeRequest(Latitude, Longitude);
+             Log.d(TAG, String.valueOf(Longitude));
+             Log.d(TAG, String.valueOf(Latitude));
++            String result = MakeRequest(Latitude, Longitude);
++
+             Log.d(TAG, "Response from url: " + result);
+ 
+             if (result != null) {
+Index: app/src/main/java/hk/edu/ouhk/weather/MainActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/hk/edu/ouhk/weather/MainActivity.java	(date 1620551728044)
++++ app/src/main/java/hk/edu/ouhk/weather/MainActivity.java	(date 1620551728044)
+@@ -62,8 +62,14 @@
+         while (!permission) {
+             checkpermission();
+         }
++
+         WeatherAPI weatherAPI = new WeatherAPI(Longitude, Latitude);
+         weatherAPI.start();
++        try {
++            weatherAPI.join();
++        } catch (InterruptedException e) {
++            e.printStackTrace();
++        }
+ 
+         Timer timer = new Timer();
+         timer.schedule(new TimerTask() {
+@@ -140,10 +146,10 @@
+         try{
+             gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+             network_enabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+-
+         } catch (Exception e){
+             e.printStackTrace();
+         }
++
+         if (gps_enabled && network_enabled) {
+             if(location != null){
+                 Longitude = location.getLongitude();
