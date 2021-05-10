@@ -112,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 }
             }
         }, 0, 60000);
+
         locationText.setText(Weather.getLocation());
         date.setText(Weather.getDate());
         time.setText(Weather.getCurrTime());
@@ -206,6 +207,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                         }
                     }
                 }
+                if(Longitude == 0 && Latitude == 0){
+                    getLocationManager();
+                }
             }
         } catch (Exception e){
             e.printStackTrace();
@@ -219,5 +223,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     public String ConvertCTOF(String num){
         double f = Double.valueOf(num) * 1.8 +32;
         return String.valueOf((Math.floor(f*10))/ 10);
+    }
+
+    @Override
+    //Disable back button
+    public void onBackPressed() {
+        //super.onBackPressed();
     }
 }
